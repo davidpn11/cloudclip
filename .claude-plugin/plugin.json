@@ -6,5 +6,7 @@
   "author": { "name": "David Nascimento" },
   "homepage": "https://davidpn11.github.io/cloudclip/",
   "repository": "https://github.com/davidpn11/cloudclip",
+  "license": "MIT",
+  "icon": "./.claude-plugin/icon.png",
   "keywords": ["video", "image", "review", "ffmpeg", "editing"]
 }

@@ -65,3 +65,9 @@ The server listens on 127.0.0.1 only, and your media and comments stay on your m
 
 ## Website
 GitHub Pages serves this repo's root: Settings → Pages → Deploy from branch → `main` / `(root)`.
+
+## Releasing
+Bump `version` in `.claude-plugin/plugin.json` on every release, or `claude plugin update` won't pick it up. Run `claude plugin validate . --strict` before pushing.
+
+## License
+[MIT](LICENSE)
