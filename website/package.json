@@ -1,0 +1,25 @@
+{
+  "name": "@cloudclip/website",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.4.3",
+  "scripts": {
+    "sync": "rm -rf public && mkdir public && cp -R ../skills/review/app public/app && cp -R ../demo public/demo",
+    "predev": "bun run sync",
+    "dev": "next dev",
+    "prebuild": "bun run sync",
+    "build": "next build",
+    "typecheck": "next typegen && bun --check"
+  },
+  "dependencies": {
+    "next": "16.3.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}
