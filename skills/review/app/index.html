@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CloudClip Review</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="app">
+  <header class="top glass">
+    <span class="brand">
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fcbff"/><stop offset="1" stop-color="#2d8cff"/></linearGradient></defs><path d="M7 19a5 5 0 0 1-.7-9.95A6.5 6.5 0 0 1 18.6 10 4.5 4.5 0 0 1 17.5 19z" fill="url(#g)"/></svg>
+      CloudClip
+    </span>
+    <a class="btn demo-only" href="../../../" target="_top">About</a>
+    <label class="btn demo-only">Open your own file<input id="file" type="file" accept="video/*,image/*" hidden></label>
+    <span class="muted" id="mode"></span>
+  </header>
+  <section class="player glass">
+    <div class="stage" id="stage"><div id="overlay"></div></div>
+    <div class="bar">
+      <button class="primary" id="add">Comment <kbd>C</kbd></button>
+      <span class="muted">Drag on the frame to mark an area, or click a spot<span class="video-only"> · <kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> 5s</span></span>
+      <span class="muted" id="status"></span>
+    </div>
+  </section>
+  <aside class="side">
+    <form id="f" class="glass">
+      <div class="muted">At <strong id="at"></strong>. Mark the frame if you like, then type. <kbd>Enter</kbd> saves, <kbd>Shift</kbd>+<kbd>Enter</kbd> adds a line, <kbd>Esc</kbd> cancels.</div>
+      <textarea id="txt" placeholder="e.g. blur this logo, cut from here to 1:12, make this title bigger…"></textarea>
+      <div class="bar"><button class="primary" type="submit">Save</button><button type="button" id="cancel">Cancel</button></div>
+    </form>
+    <p class="muted" id="empty">No comments yet. Press <kbd>C</kbd> to add one.</p>
+    <ol id="list"></ol>
+    <details class="glass"><summary>Agent view · comments.json</summary><pre id="json">[]</pre></details>
+  </aside>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
