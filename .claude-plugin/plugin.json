@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Review a video or image in your browser by pausing, marking an area and leaving a comment. Claude then applies the comments as ffmpeg edits.",
   "author": { "name": "David Nascimento" },
-  "homepage": "https://davidpn11.github.io/cloudclip/",
+  "homepage": "https://cloudclip.davidpn.com/",
   "repository": "https://github.com/davidpn11/cloudclip",
   "license": "MIT",
   "icon": "./.claude-plugin/icon.png",

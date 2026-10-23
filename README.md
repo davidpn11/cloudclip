@@ -4,7 +4,7 @@ Comment on a video like a doc, and your agent makes the edits.
 
 CloudClip opens a video or image in a local web page. You pause, drag a box or click a spot, and type what should change. Your AI agent gets each comment with its timestamp and pixel coordinates, grabs the marked frame to see what you pointed at, and applies the edit with ffmpeg. It writes a new file and leaves the original alone.
 
-Try the live demo at https://davidpn11.github.io/cloudclip/. It runs in your browser and uploads nothing.
+Try the live demo at https://cloudclip.davidpn.com/. It runs in your browser and uploads nothing.
 
 ## Install
 

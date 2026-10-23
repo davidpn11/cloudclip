@@ -4,6 +4,7 @@ import "@review/style.css";
 import "./global.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://cloudclip.davidpn.com"),
   title: "CloudClip",
   description:
     "Pause a video, mark an area, and type what should change. Your AI agent turns the comments into ffmpeg edits.",
