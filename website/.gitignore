@@ -1,0 +1,7 @@
+node_modules
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
+# Copied from ../skills/review/app and ../demo by `bun run sync`
+public

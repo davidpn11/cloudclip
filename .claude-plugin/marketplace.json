@@ -1,6 +1,6 @@
 {
   "name": "cloudclip",
-  "description": "CloudClip: comment on videos and images, let your agent make the edits",
+  "description": "Comment on videos and images, and let your agent make the edits",
   "owner": { "name": "David Nascimento" },
   "plugins": [
     {

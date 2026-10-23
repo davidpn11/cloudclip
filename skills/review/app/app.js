@@ -27,14 +27,14 @@ async function save() {
   render();
   if (!server) {
     try { localStorage.setItem(key, JSON.stringify(comments)); status.textContent = 'Saved in this browser'; }
-    catch { status.textContent = 'Could not save: browser storage is blocked'; }
+    catch { status.textContent = 'Could not save because browser storage is blocked'; }
     return;
   }
   status.textContent = 'Saving…';
   try {
     const r = await fetch('comments', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(comments) });
     status.textContent = r.ok ? `Saved ${comments.length} comment${comments.length === 1 ? '' : 's'}` : 'Save failed';
-  } catch { status.textContent = 'Save failed: is the server running?'; }
+  } catch { status.textContent = 'Save failed. Is the server running?'; }
 }
 
 // Marks are stored in source pixels and drawn in percent, so they stay put when the page resizes.
@@ -147,10 +147,10 @@ $('file').onchange = e => {
     const d = r.ok && await r.json();
     if (Array.isArray(d)) { server = true; comments = d; }
   } catch {}
-  const src = new URLSearchParams(location.search).get('src') || '../../../demo/sample.mp4';
+  const src = new URLSearchParams(location.search).get('src') || '../demo/sample.mp4';
   setMedia(src, IMAGE.test(src), decodeURIComponent(src.split('/').pop()));
   if (!server) loadLocal();
   document.body.classList.toggle('demo', !server);
-  $('mode').textContent = server ? 'Saving to comments.json' : 'Demo · comments stay in this browser';
+  $('mode').textContent = server ? 'Saving to comments.json' : 'Demo mode. Comments stay in this browser.';
   render();
 })();

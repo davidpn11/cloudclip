@@ -1,0 +1,58 @@
+name: Website
+
+on:
+  pull_request:
+    paths: [website/**, skills/review/app/**, demo/**, .github/workflows/pages.yml]
+  push:
+    branches: [main]
+    paths: [website/**, skills/review/app/**, demo/**, .github/workflows/pages.yml]
+  workflow_dispatch:
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: read
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: website/package.json
+      # Gives the site's base path: /cloudclip on github.io, empty on a custom domain.
+      - id: pages
+        uses: actions/configure-pages@v5
+      - run: bun install --frozen-lockfile
+      - run: bun run typecheck
+      - run: bun run build
+        env:
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: website/out
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
