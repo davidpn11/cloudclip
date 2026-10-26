@@ -1,9 +1,42 @@
+import { type Agent, InstallTabs } from "./install-tabs";
+
 const repoUrl = "https://github.com/davidpn11/cloudclip";
 // Relative links, so they work under any base path. `bun run sync` copies the review app and demo media into public/.
 const videoDemo = "app/?src=../demo/sample.mp4";
 const imageDemo = "app/?src=../demo/sample.jpg";
 
-const install = ["/plugin marketplace add davidpn11/cloudclip", "/plugin install cloudclip@cloudclip"];
+const agents: Agent[] = [
+  {
+    name: "Claude Code",
+    commands: ["/plugin marketplace add davidpn11/cloudclip", "/plugin install cloudclip@cloudclip"],
+    note: "In the desktop app or the terminal.",
+  },
+  {
+    name: "Codex",
+    commands: ["codex plugin marketplace add davidpn11/cloudclip", "codex plugin add cloudclip@cloudclip"],
+    note: "In the Codex app, install it from Plugins. Start a new session afterwards.",
+  },
+  {
+    name: "GitHub Copilot CLI",
+    commands: ["copilot plugin marketplace add davidpn11/cloudclip", "copilot plugin install cloudclip@cloudclip"],
+    note: "Copilot reads the same marketplace as Claude Code.",
+  },
+  {
+    name: "Cursor",
+    commands: ["git clone https://github.com/davidpn11/cloudclip ~/.cursor/plugins/local/cloudclip"],
+    note: 'Then run "Developer: Reload Window". Cursor loads the Agent Plugins manifest as is.',
+  },
+  {
+    name: "Grok Build",
+    commands: ["git clone https://github.com/davidpn11/cloudclip ~/.grok/plugins/cloudclip"],
+    note: "Grok also picks up CloudClip if you installed it in Claude Code.",
+  },
+  {
+    name: "Antigravity and others",
+    commands: ["npx skills add davidpn11/cloudclip"],
+    note: "Copies the skill into each agent the skills CLI finds, such as Antigravity, OpenCode, Windsurf and Cline.",
+  },
+];
 
 const schema = `[
   {"time": 72.4, "timestamp": "1:12.4",
@@ -137,16 +170,15 @@ export default function Home() {
             and trim filters take.
           </p>
         </div>
-        <div className="card glass" id="install">
-          <h2>Install</h2>
-          <p className="muted">In Claude Code, desktop app or terminal:</p>
-          <pre className="code">{install.join("\n")}</pre>
-          <p className="muted">
-            It needs <code>python3</code> and <code>ffmpeg</code>. For Codex, Gemini CLI, Cursor or Grok, clone the
-            repo so the agent reads <code>AGENTS.md</code>, or copy <code>skills/review</code> into the agent's
-            skills folder.
-          </p>
-        </div>
+      </section>
+
+      <section className="install" id="install">
+        <h2>Install it in your agent</h2>
+        <p className="muted">
+          Every agent needs <code>python3</code> and <code>ffmpeg</code> on your machine.{" "}
+          <a href={`${repoUrl}#install`}>Full install guide</a>
+        </p>
+        <InstallTabs agents={agents} />
       </section>
 
       <footer className="muted">

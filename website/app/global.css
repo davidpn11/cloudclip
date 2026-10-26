@@ -17,3 +17,11 @@ h2 { margin: 0 0 8px; font-size: 22px; letter-spacing: -.01em; }
 .step { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; margin-bottom: 10px; }
 pre.code { margin: 0; padding: 16px; border-radius: 14px; background: var(--field); border: 1px solid var(--line); overflow-x: auto; white-space: pre; }
 footer { text-align: center; padding: 8px 0 32px; }
+.install { display: grid; gap: 12px; }
+.install > h2, .install > p { margin: 0; text-align: center; }
+a:not(.btn) { color: var(--accent); }
+.tabs { display: grid; gap: 12px; max-width: 760px; width: 100%; justify-self: center; }
+.tablist { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.tablist button { font-size: 14px; }
+.tabs .card { display: grid; gap: 10px; }
+.tabs pre.code { white-space: pre-wrap; overflow-wrap: anywhere; }

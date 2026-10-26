@@ -1,5 +1,5 @@
 ---
-name: review
+name: cloudclip-review
 description: Review a video or image in the browser with comments tied to a moment and, optionally, a marked area (box or point), then apply those comments as edits with ffmpeg. Use when the user wants to review, give feedback on, annotate, or edit a video or image file (mp4, mov, webm, png, jpg and similar), or mentions CloudClip.
 ---
 
@@ -7,7 +7,7 @@ description: Review a video or image in the browser with comments tied to a mome
 
 The user watches the video, or looks at the image, in a local web page. They pause, can drag a box or click a spot on the frame, and type a comment. You then turn those comments into ffmpeg edits.
 
-The folder that holds this file also holds `server.py`, which uses only the Python standard library, and `app/`, the review page. In Claude Code, that folder is `${CLAUDE_PLUGIN_ROOT}/skills/review`.
+The folder that holds this file also holds `server.py`, which uses only the Python standard library, and `app/`, the review page. In Claude Code, that folder is `${CLAUDE_PLUGIN_ROOT}/skills/cloudclip-review`.
 
 ## 1. Check tools and inspect the media
 - Check that `python3`, `ffmpeg` and `ffprobe` exist with `command -v`. If one is missing, stop and tell the user how to install it. On macOS that's `brew install ffmpeg`, on Debian or Ubuntu `sudo apt install ffmpeg python3`, and on Windows `winget install ffmpeg`.
