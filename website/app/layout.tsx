@@ -12,7 +12,12 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    // theme.js sets data-theme on <html> before React hydrates.
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Copied from ../skills/review/app by `bun run sync`, the same file the review page uses. */}
+        <script src="/app/theme.js" />
+      </head>
       <body>{children}</body>
     </html>
   );

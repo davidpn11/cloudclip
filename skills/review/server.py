@@ -12,7 +12,7 @@ VIDEO, COMMENTS = os.path.abspath(sys.argv[1]), os.path.abspath(sys.argv[2])
 if not os.path.isfile(VIDEO):
     sys.exit(f"not a file: {VIDEO}")
 APP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app")
-STATIC = {"/": "index.html", "/app.js": "app.js", "/style.css": "style.css"}  # fixed list, so no path traversal
+STATIC = {"/": "index.html", "/app.js": "app.js", "/theme.js": "theme.js", "/style.css": "style.css"}  # fixed list, so no path traversal
 TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css"}
 
 

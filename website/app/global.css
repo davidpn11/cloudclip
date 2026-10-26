@@ -1,7 +1,7 @@
 /* Landing page only. The theme tokens and .glass come from the review app's style.css. */
 .page { max-width: 1080px; margin: 0 auto; padding: 16px; display: grid; gap: 28px; }
 nav { display: flex; align-items: center; gap: 12px; padding: 10px 14px; }
-nav .btn { margin-left: auto; }
+nav .theme-toggle { margin-left: auto; }
 .hero { text-align: center; padding: 40px 8px 8px; display: grid; gap: 16px; justify-items: center; }
 h1 { font-size: clamp(32px, 6vw, 56px); line-height: 1.05; letter-spacing: -.03em; margin: 0; max-width: 16ch; }
 h1 span { background: linear-gradient(90deg, #2d8cff, #7cc4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -15,5 +15,5 @@ h2 { margin: 0 0 8px; font-size: 22px; letter-spacing: -.01em; }
 .card b { display: block; margin-bottom: 4px; }
 .card p { margin: 0; color: var(--muted); }
 .step { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; margin-bottom: 10px; }
-pre.code { margin: 0; padding: 16px; border-radius: 14px; background: rgba(255, 255, 255, .75); border: 1px solid var(--line); overflow-x: auto; white-space: pre; }
+pre.code { margin: 0; padding: 16px; border-radius: 14px; background: var(--field); border: 1px solid var(--line); overflow-x: auto; white-space: pre; }
 footer { text-align: center; padding: 8px 0 32px; }
