@@ -1,9 +1,11 @@
+import { type Agent, InstallTabs } from "./install-tabs";
+
 const repoUrl = "https://github.com/davidpn11/cloudclip";
 // Relative links, so they work under any base path. `bun run sync` copies the review app and demo media into public/.
 const videoDemo = "app/?src=../demo/sample.mp4";
 const imageDemo = "app/?src=../demo/sample.jpg";
 
-const agents = [
+const agents: Agent[] = [
   {
     name: "Claude Code",
     commands: ["/plugin marketplace add davidpn11/cloudclip", "/plugin install cloudclip@cloudclip"],
@@ -176,15 +178,7 @@ export default function Home() {
           Every agent needs <code>python3</code> and <code>ffmpeg</code> on your machine.{" "}
           <a href={`${repoUrl}#install`}>Full install guide</a>
         </p>
-        <div className="grid">
-          {agents.map((agent) => (
-            <div key={agent.name} className="card glass">
-              <b>{agent.name}</b>
-              <pre className="code">{agent.commands.join("\n")}</pre>
-              <p className="muted">{agent.note}</p>
-            </div>
-          ))}
-        </div>
+        <InstallTabs agents={agents} />
       </section>
 
       <footer className="muted">
