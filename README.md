@@ -18,8 +18,9 @@ Then ask Claude to "Review ~/Videos/launch.mp4 with CloudClip", or run `/cloudcl
 ### Codex (CLI and app)
 ```
 codex plugin marketplace add davidpn11/cloudclip
+codex plugin add cloudclip@cloudclip
 ```
-Then run `/plugins` in the Codex CLI, or open Plugins in the Codex app, pick the CloudClip marketplace, and install `cloudclip`. Start a new session afterwards so Codex loads the skill.
+In the Codex app, add the marketplace the same way, then install `cloudclip` from Plugins. Start a new session afterwards so Codex loads the skill.
 
 ### GitHub Copilot CLI
 ```
