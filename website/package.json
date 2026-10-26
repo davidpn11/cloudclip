@@ -4,7 +4,7 @@
   "type": "module",
   "packageManager": "bun@1.4.3",
   "scripts": {
-    "sync": "rm -rf public && mkdir public && cp -R ../skills/review/app public/app && cp -R ../demo public/demo",
+    "sync": "rm -rf public && mkdir public && cp -R ../skills/cloudclip-review/app public/app && cp -R ../demo public/demo",
     "predev": "bun run sync",
     "dev": "next dev",
     "prebuild": "bun run sync",

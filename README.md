@@ -13,7 +13,7 @@ Try the live demo at https://cloudclip.davidpn.com/. It runs in your browser and
 /plugin marketplace add davidpn11/cloudclip
 /plugin install cloudclip@cloudclip
 ```
-Then ask Claude to "Review ~/Videos/launch.mp4 with CloudClip", or run `/cloudclip:review`.
+Then ask Claude to "Review ~/Videos/launch.mp4 with CloudClip", or run `/cloudclip:cloudclip-review`.
 
 ### Codex (CLI and app)
 ```
@@ -41,13 +41,13 @@ git clone https://github.com/davidpn11/cloudclip ~/.grok/plugins/cloudclip
 ```
 
 ### Antigravity CLI and other agents
-The [skills CLI](https://github.com/vercel-labs/skills) copies `skills/review/` into the skills folder of each agent it finds on your machine, such as Antigravity, OpenCode, Windsurf or Cline:
+The [skills CLI](https://github.com/vercel-labs/skills) copies `skills/cloudclip-review/` into the skills folder of each agent it finds on your machine, such as Antigravity, OpenCode, Windsurf or Cline:
 ```
 npx skills add davidpn11/cloudclip
 ```
 Google replaced Gemini CLI with Antigravity CLI in June 2026, so Gemini CLI users should take this route too.
 
-Any other agent can use CloudClip if you copy [`skills/review/`](skills/review) into its skills folder, or open this repo so it reads [`AGENTS.md`](AGENTS.md).
+Any other agent can use CloudClip if you copy [`skills/cloudclip-review/`](skills/cloudclip-review) into its skills folder, or open this repo so it reads [`AGENTS.md`](AGENTS.md).
 
 ### Requirements
 - `python3`, which comes with macOS and most Linux distributions
@@ -75,7 +75,7 @@ Times are in seconds. Coordinates are in the media's source pixels, measured fro
 
 ## How it works
 ```
-skills/review/
+skills/cloudclip-review/
   SKILL.md     the steps the agent follows, plus the ffmpeg recipes
   server.py    a Python server with no dependencies. It listens on 127.0.0.1 and serves the page,
                the media file (with seeking), and comments.json.
@@ -100,7 +100,7 @@ The site in `website/` is a Next.js static export. To run it locally:
 ```bash
 cd website && bun install && bun run dev
 ```
-`bun run dev` and `bun run build` first copy `skills/review/app` and `demo/` into `website/public`, so the demo always runs the same page the plugin ships.
+`bun run dev` and `bun run build` first copy `skills/cloudclip-review/app` and `demo/` into `website/public`, so the demo always runs the same page the plugin ships.
 
 The `Website` workflow in `.github/workflows/pages.yml` builds the site on every pull request and deploys it to GitHub Pages on every push to `main` that changes it. Before the first deploy, open the repo's Settings, go to Pages, and set Source to "GitHub Actions".
 

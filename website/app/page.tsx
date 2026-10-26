@@ -3,7 +3,38 @@ const repoUrl = "https://github.com/davidpn11/cloudclip";
 const videoDemo = "app/?src=../demo/sample.mp4";
 const imageDemo = "app/?src=../demo/sample.jpg";
 
-const install = ["/plugin marketplace add davidpn11/cloudclip", "/plugin install cloudclip@cloudclip"];
+const agents = [
+  {
+    name: "Claude Code",
+    commands: ["/plugin marketplace add davidpn11/cloudclip", "/plugin install cloudclip@cloudclip"],
+    note: "In the desktop app or the terminal.",
+  },
+  {
+    name: "Codex",
+    commands: ["codex plugin marketplace add davidpn11/cloudclip", "codex plugin add cloudclip@cloudclip"],
+    note: "In the Codex app, install it from Plugins. Start a new session afterwards.",
+  },
+  {
+    name: "GitHub Copilot CLI",
+    commands: ["copilot plugin marketplace add davidpn11/cloudclip", "copilot plugin install cloudclip@cloudclip"],
+    note: "Copilot reads the same marketplace as Claude Code.",
+  },
+  {
+    name: "Cursor",
+    commands: ["git clone https://github.com/davidpn11/cloudclip ~/.cursor/plugins/local/cloudclip"],
+    note: 'Then run "Developer: Reload Window". Cursor loads the Agent Plugins manifest as is.',
+  },
+  {
+    name: "Grok Build",
+    commands: ["git clone https://github.com/davidpn11/cloudclip ~/.grok/plugins/cloudclip"],
+    note: "Grok also picks up CloudClip if you installed it in Claude Code.",
+  },
+  {
+    name: "Antigravity and others",
+    commands: ["npx skills add davidpn11/cloudclip"],
+    note: "Copies the skill into each agent the skills CLI finds, such as Antigravity, OpenCode, Windsurf and Cline.",
+  },
+];
 
 const schema = `[
   {"time": 72.4, "timestamp": "1:12.4",
@@ -137,15 +168,22 @@ export default function Home() {
             and trim filters take.
           </p>
         </div>
-        <div className="card glass" id="install">
-          <h2>Install</h2>
-          <p className="muted">In Claude Code, desktop app or terminal:</p>
-          <pre className="code">{install.join("\n")}</pre>
-          <p className="muted">
-            It needs <code>python3</code> and <code>ffmpeg</code>. Codex, Copilot CLI, Cursor and Grok Build load it as a
-            plugin too, and <code>npx skills add davidpn11/cloudclip</code> adds it to Antigravity and other agents.{" "}
-            <a href={`${repoUrl}#install`}>Install steps for each agent</a>.
-          </p>
+      </section>
+
+      <section className="install" id="install">
+        <h2>Install it in your agent</h2>
+        <p className="muted">
+          Every agent needs <code>python3</code> and <code>ffmpeg</code> on your machine.{" "}
+          <a href={`${repoUrl}#install`}>Full install guide</a>
+        </p>
+        <div className="grid">
+          {agents.map((agent) => (
+            <div key={agent.name} className="card glass">
+              <b>{agent.name}</b>
+              <pre className="code">{agent.commands.join("\n")}</pre>
+              <p className="muted">{agent.note}</p>
+            </div>
+          ))}
         </div>
       </section>
 

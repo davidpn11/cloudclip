@@ -17,7 +17,7 @@
     "incremental": true,
     "paths": {
       "@/*": ["./*"],
-      "@review/*": ["../skills/review/app/*"]
+      "@review/*": ["../skills/cloudclip-review/app/*"]
     },
     "plugins": [{ "name": "next" }]
   },

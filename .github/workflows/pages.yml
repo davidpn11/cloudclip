@@ -2,10 +2,10 @@ name: Website
 
 on:
   pull_request:
-    paths: [website/**, skills/review/app/**, demo/**, .github/workflows/pages.yml]
+    paths: [website/**, skills/cloudclip-review/app/**, demo/**, .github/workflows/pages.yml]
   push:
     branches: [main]
-    paths: [website/**, skills/review/app/**, demo/**, .github/workflows/pages.yml]
+    paths: [website/**, skills/cloudclip-review/app/**, demo/**, .github/workflows/pages.yml]
   workflow_dispatch:
 
 concurrency:

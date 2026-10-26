@@ -6,7 +6,7 @@ const config = {
   trailingSlash: true,
   reactStrictMode: true,
   images: { unoptimized: true },
-  // The shared stylesheet lives in ../skills/review/app, outside this folder.
+  // The shared stylesheet lives in ../skills/cloudclip-review/app, outside this folder.
   turbopack: { root: fileURLToPath(new URL("..", import.meta.url)) },
 };
 

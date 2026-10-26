@@ -3,5 +3,5 @@ node_modules
 out
 next-env.d.ts
 *.tsbuildinfo
-# Copied from ../skills/review/app and ../demo by `bun run sync`
+# Copied from ../skills/cloudclip-review/app and ../demo by `bun run sync`
 public

@@ -17,3 +17,10 @@ h2 { margin: 0 0 8px; font-size: 22px; letter-spacing: -.01em; }
 .step { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; margin-bottom: 10px; }
 pre.code { margin: 0; padding: 16px; border-radius: 14px; background: var(--field); border: 1px solid var(--line); overflow-x: auto; white-space: pre; }
 footer { text-align: center; padding: 8px 0 32px; }
+.install { display: grid; gap: 12px; }
+.install > h2, .install > p { margin: 0; text-align: center; }
+.install .card { display: grid; gap: 10px; align-content: start; }
+.install .card b { margin: 0; }
+a:not(.btn) { color: var(--accent); }
+.install .grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); }
+.install pre.code { white-space: pre-wrap; overflow-wrap: anywhere; }
