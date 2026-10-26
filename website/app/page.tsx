@@ -46,14 +46,31 @@ function Logo() {
           <stop offset="0" stopColor="#8fcbff" />
           <stop offset="1" stopColor="#2d8cff" />
         </linearGradient>
+        {/* Cuts a gap in the cloud around the scissors, so they read on the cloud and off it. */}
+        <mask id="cc-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+          <rect width="24" height="24" fill="#fff" />
+          <Scissors stroke="#000" width={7.8} />
+        </mask>
       </defs>
-      <path d="M7 19a5 5 0 0 1-.7-9.95A6.5 6.5 0 0 1 18.6 10 4.5 4.5 0 0 1 18 19H7z" fill="url(#g)" />
-      <g transform="translate(15.8 15.2) rotate(180) scale(0.3) translate(-12.5 -12)" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round">
-        <circle cx="6" cy="6" r="3" />
-        <circle cx="6" cy="18" r="3" />
-        <path d="M8.12 8.12 19 19M8.12 15.88 19 5" />
-      </g>
+      <path d="M7 19a5 5 0 0 1-.7-9.95A6.5 6.5 0 0 1 18.6 10 4.5 4.5 0 0 1 18 19H7z" fill="url(#g)" mask="url(#cc-cut)" />
+      <Scissors stroke="#2d8cff" width={2.6} />
     </svg>
+  );
+}
+
+function Scissors({ stroke, width }: { stroke: string; width: number }) {
+  return (
+    <g
+      transform="translate(16.6 19) rotate(180) scale(0.3) translate(-12.5 -12)"
+      fill="none"
+      stroke={stroke}
+      strokeWidth={width}
+      strokeLinecap="round"
+    >
+      <circle cx="6" cy="6" r="3" />
+      <circle cx="6" cy="18" r="3" />
+      <path d="M8.12 8.12 19 19M8.12 15.88 19 5" />
+    </g>
   );
 }
 
