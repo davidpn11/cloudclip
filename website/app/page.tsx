@@ -142,9 +142,9 @@ export default function Home() {
           <p className="muted">In Claude Code, desktop app or terminal:</p>
           <pre className="code">{install.join("\n")}</pre>
           <p className="muted">
-            It needs <code>python3</code> and <code>ffmpeg</code>. For Codex, Gemini CLI, Cursor or Grok, clone the
-            repo so the agent reads <code>AGENTS.md</code>, or copy <code>skills/review</code> into the agent's
-            skills folder.
+            It needs <code>python3</code> and <code>ffmpeg</code>. Codex, Copilot CLI, Cursor and Grok Build load it as a
+            plugin too, and <code>npx skills add davidpn11/cloudclip</code> adds it to Antigravity and other agents.{" "}
+            <a href={`${repoUrl}#install`}>Install steps for each agent</a>.
           </p>
         </div>
       </section>

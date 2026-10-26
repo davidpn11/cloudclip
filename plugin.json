@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "cloudclip",
+  "version": "0.1.0",
+  "description": "Review a video or image in your browser by pausing, marking an area and leaving a comment. Your agent then applies the comments as ffmpeg edits.",
+  "author": { "name": "David Nascimento", "url": "https://github.com/davidpn11" },
+  "homepage": "https://cloudclip.davidpn.com/",
+  "repository": "https://github.com/davidpn11/cloudclip",
+  "license": "MIT",
+  "keywords": ["video", "image", "review", "ffmpeg", "editing"]
+}

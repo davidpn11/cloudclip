@@ -15,10 +15,38 @@ Try the live demo at https://cloudclip.davidpn.com/. It runs in your browser and
 ```
 Then ask Claude to "Review ~/Videos/launch.mp4 with CloudClip", or run `/cloudclip:review`.
 
-### Other agents (Codex, Gemini CLI, Cursor, Grok)
-The skill is one folder in the open Agent Skills format. Either clone this repo and work in it, so your agent reads [`AGENTS.md`](AGENTS.md), or copy [`skills/review/`](skills/review) into your agent's skills folder.
+### Codex (CLI and app)
+```
+codex plugin marketplace add davidpn11/cloudclip
+```
+Then run `/plugins` in the Codex CLI, or open Plugins in the Codex app, pick the CloudClip marketplace, and install `cloudclip`. Start a new session afterwards so Codex loads the skill.
 
-I plan to ship a native package for each of these later.
+### GitHub Copilot CLI
+```
+copilot plugin marketplace add davidpn11/cloudclip
+copilot plugin install cloudclip@cloudclip
+```
+
+### Cursor
+CloudClip ships a root `plugin.json` in the [Agent Plugins](https://agent-plugins.org) format, which Cursor loads without changes. Until it's listed in the Cursor Marketplace, clone it into Cursor's local plugins folder and run "Developer: Reload Window".
+```
+git clone https://github.com/davidpn11/cloudclip ~/.cursor/plugins/local/cloudclip
+```
+
+### Grok Build
+Grok Build reads Claude Code plugins and marketplaces, so installing CloudClip in Claude Code also makes it show up in Grok's `/plugins`. Without Claude Code, clone it into Grok's plugins folder:
+```
+git clone https://github.com/davidpn11/cloudclip ~/.grok/plugins/cloudclip
+```
+
+### Antigravity CLI and other agents
+The [skills CLI](https://github.com/vercel-labs/skills) copies `skills/review/` into the skills folder of each agent it finds on your machine, such as Antigravity, OpenCode, Windsurf or Cline:
+```
+npx skills add davidpn11/cloudclip
+```
+Google replaced Gemini CLI with Antigravity CLI in June 2026, so Gemini CLI users should take this route too.
+
+Any other agent can use CloudClip if you copy [`skills/review/`](skills/review) into its skills folder, or open this repo so it reads [`AGENTS.md`](AGENTS.md).
 
 ### Requirements
 - `python3`, which comes with macOS and most Linux distributions
@@ -53,6 +81,9 @@ skills/review/
   app/         the review page. The website's demo runs these same files and saves to localStorage.
 website/       the project website, a Next.js static export
 demo/          the sample video and image for the demo
+plugin.json    the Agent Plugins manifest, read by Codex, Cursor and Copilot CLI
+.claude-plugin/          the Claude Code manifest and marketplace, also read by Copilot CLI and Grok Build
+.agents/plugins/         the Codex marketplace
 ```
 
 ## Status
@@ -73,7 +104,7 @@ cd website && bun install && bun run dev
 The `Website` workflow in `.github/workflows/pages.yml` builds the site on every pull request and deploys it to GitHub Pages on every push to `main` that changes it. Before the first deploy, open the repo's Settings, go to Pages, and set Source to "GitHub Actions".
 
 ## Releasing
-Bump `version` in `.claude-plugin/plugin.json` for every release. Without a new version, `claude plugin update` keeps the old copy. Run `claude plugin validate . --strict` before you push.
+Bump `version` in both `plugin.json` and `.claude-plugin/plugin.json` for every release. Without a new version, `claude plugin update` and the other clients keep the old copy. Run `claude plugin validate . --strict` before you push.
 
 ## License
 [MIT](LICENSE)
