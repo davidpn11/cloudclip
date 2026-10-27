@@ -48,8 +48,8 @@ button, .btn {
   display: inline-flex; align-items: center; gap: 6px;
 }
 button:hover, .btn:hover { background: var(--field-hover); }
-.primary { background: linear-gradient(180deg, #5aa9ff, var(--accent)); color: #fff; border-color: transparent; box-shadow: 0 6px 18px rgba(45, 140, 255, .35); }
-.primary:hover { background: linear-gradient(180deg, #6db4ff, #1f7ff0); }
+.primary { background: linear-gradient(180deg, #5aa9ff, var(--accent)) border-box; color: #fff; border-color: transparent; box-shadow: 0 6px 18px rgba(45, 140, 255, .35); }
+.primary:hover { background: linear-gradient(180deg, #6db4ff, #1f7ff0) border-box; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .muted { color: var(--muted); font-size: 13px; }
 kbd { font: 12px ui-monospace, monospace; padding: 1px 6px; border-radius: 6px; background: var(--field); border: 1px solid var(--line); color: var(--ink); }
