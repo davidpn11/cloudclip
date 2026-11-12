@@ -109,6 +109,26 @@ overlay.onpointermove = e => {
 };
 overlay.onpointerup = () => { start = null; txt.focus(); };
 
+$('copy').onclick = async e => {
+  e.preventDefault(); // the button sits in <summary>, so don't toggle the panel
+  const b = e.currentTarget;
+  let ok;
+  try { await navigator.clipboard.writeText($('json').textContent); ok = true; }
+  catch { // some embedded browsers block the Clipboard API; fall back to selecting the text
+    const t = document.createElement('textarea'); // the <pre> may sit in a closed <details>, so copy from a temporary field
+    t.value = $('json').textContent; document.body.append(t); t.select(); ok = document.execCommand('copy'); t.remove();
+  }
+  b.textContent = ok ? 'Copied' : 'Copy failed';
+  setTimeout(() => { b.textContent = 'Copy'; }, 1500);
+};
+$('done').onclick = async () => {
+  await save();
+  try {
+    if (!(await fetch('done', { method: 'POST' })).ok) throw 0;
+    document.body.classList.add('finished');
+    window.close(); // only closes tabs a script opened; the message covers the rest
+  } catch { status.textContent = "Couldn't reach the agent. Tell it \"done\" in the chat."; }
+};
 $('add').onclick = openForm;
 $('cancel').onclick = closeForm;
 f.onsubmit = e => {
@@ -151,6 +171,7 @@ $('file').onchange = e => {
   setMedia(src, IMAGE.test(src), decodeURIComponent(src.split('/').pop()));
   if (!server) loadLocal();
   document.body.classList.toggle('demo', !server);
+  document.body.classList.toggle('server', server);
   $('mode').textContent = server ? 'Saving to comments.json' : 'Demo mode. Comments stay in this browser.';
   render();
 })();

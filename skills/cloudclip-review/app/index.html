@@ -17,6 +17,7 @@
     <a class="btn demo-only" href="../" target="_top">About</a>
     <label class="btn demo-only">Open your own file<input id="file" type="file" accept="video/*,image/*" hidden></label>
     <span class="muted" id="mode"></span>
+    <button class="primary server-only" type="button" id="done">Finished · return to agent</button>
     <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg></button>
   </header>
   <section class="player glass">
@@ -35,9 +36,10 @@
     </form>
     <p class="muted" id="empty">No comments yet. Press <kbd>C</kbd> to add one.</p>
     <ol id="list"></ol>
-    <details class="glass"><summary>Agent view · comments.json</summary><pre id="json">[]</pre></details>
+    <details class="glass"><summary>Agent view · comments.json <button type="button" id="copy">Copy</button></summary><pre id="json">[]</pre></details>
   </aside>
 </main>
+<div class="finished-msg glass" role="status"><strong>Sent to your agent.</strong><span class="muted">You can close this tab.</span></div>
 <script src="app.js"></script>
 </body>
 </html>
