@@ -61,7 +61,7 @@ Any other agent can use CloudClip if you copy [`skills/cloudclip-review/`](skill
 | Enter, Shift+Enter, Esc | Save, add a new line, cancel |
 | Space, ← and → | Play or pause, jump 5 seconds |
 
-Click a comment to jump to it and see its mark. Tell your agent "done" when you finish.
+Click a comment to jump to it and see its mark. Open "Agent view" to see the JSON, and use its Copy button to grab it. When you finish, click **Finished · return to agent**. The server exits, which tells your agent to start editing. Saying "done" in the chat works too.
 
 ### What the agent receives
 ```json
@@ -80,6 +80,8 @@ skills/cloudclip-review/
   server.py    a Python server with no dependencies. It listens on 127.0.0.1 and serves the page,
                the media file (with seeking), and comments.json.
   app/         the review page. The website's demo runs these same files and saves to localStorage.
+  references/  the ffmpeg recipes the agent reads when it plans the edits
+  README.md    the skill's own readme, shipped in the marketplace zip
 website/       the project website, a Next.js static export
 demo/          the sample video and image for the demo
 plugin.json    the Agent Plugins manifest, read by Codex, Cursor and Copilot CLI
@@ -88,7 +90,7 @@ plugin.json    the Agent Plugins manifest, read by Codex, Cursor and Copilot CLI
 ```
 
 ## Status
-This is version 0.1. I tested the review page and the server by hand. The ffmpeg recipes in SKILL.md are a draft. Each one ran on a test clip, but nobody has run the whole flow from comments to edits on a real project yet. Check the output, and open an issue when an edit goes wrong.
+This is version 0.1. I tested the review page and the server by hand. The ffmpeg recipes in `references/ffmpeg-recipes.md` are a draft. Each one ran on a test clip, but nobody has run the whole flow from comments to edits on a real project yet. Check the output, and open an issue when an edit goes wrong.
 
 Each session reviews one video or image. There is no audio-only mode yet.
 
@@ -106,6 +108,8 @@ The `Website` workflow in `.github/workflows/pages.yml` builds the site on every
 
 ## Releasing
 Bump `version` in both `plugin.json` and `.claude-plugin/plugin.json` for every release. Without a new version, `claude plugin update` and the other clients keep the old copy. Run `claude plugin validate . --strict` before you push.
+
+For skill marketplaces that take a zip, such as Agensi, run `scripts/package-skill.sh`. It writes `dist/cloudclip-review.zip`, with one `cloudclip-review/` folder and `SKILL.md` inside.
 
 ## License
 [MIT](LICENSE)

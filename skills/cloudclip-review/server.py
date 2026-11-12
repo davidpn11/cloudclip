@@ -1,8 +1,9 @@
 """CloudClip review server: serves the review page, the media file (with Range for seeking), and saves comments.
 
 Usage: python3 server.py <media> <comments.json>
+Prints the URL on start and "done" when the user clicks Finished, then exits.
 """
-import json, mimetypes, os, re, sys
+import json, mimetypes, os, re, sys, threading
 from urllib.parse import quote
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 
@@ -25,7 +26,16 @@ class H(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _trusted(self):
+        # Host blocks DNS rebinding; Origin blocks other sites posting fake comments into the agent's input.
+        origin = self.headers.get("Origin")
+        if self.headers.get("Host") in HOSTS and (origin is None or origin in ORIGINS):
+            return True
+        self._send(403, b"forbidden", "text/plain")
+
     def do_GET(self):
+        if not self._trusted():
+            return
         path = self.path.split("?")[0]
         if path in STATIC:
             name = STATIC[path]
@@ -75,6 +85,12 @@ class H(BaseHTTPRequestHandler):
             pass  # browser cancels range requests while seeking
 
     def do_POST(self):
+        if not self._trusted():
+            return
+        if self.path == "/done":  # the page's Finished button: exit so the agent sees the process end
+            self._send(200, b"ok", "text/plain")
+            print("done", flush=True)
+            return threading.Thread(target=self.server.shutdown).start()
         if self.path != "/comments":
             return self._send(404, b"not found", "text/plain")
         raw = self.rfile.read(int(self.headers.get("Content-Length", 0)))
@@ -95,5 +111,7 @@ class H(BaseHTTPRequestHandler):
 
 
 server = ThreadingHTTPServer(("127.0.0.1", 0), H)  # port 0: the OS picks a free port
+HOSTS = {f"127.0.0.1:{server.server_port}", f"localhost:{server.server_port}"}
+ORIGINS = {"http://" + h for h in HOSTS}
 print(f"http://127.0.0.1:{server.server_port}/?src=/media/{quote(os.path.basename(VIDEO))}", flush=True)
 server.serve_forever()
