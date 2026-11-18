@@ -88,7 +88,7 @@ plugin.json    the Agent Plugins manifest, read by Codex, Cursor and Copilot CLI
 ```
 
 ## Status
-This is version 0.1. I tested the review page and the server by hand. The ffmpeg recipes in SKILL.md are a draft. Each one ran on a test clip, but nobody has run the whole flow from comments to edits on a real project yet. Check the output, and open an issue when an edit goes wrong.
+This is version 0.2. I tested the review page and the server by hand. The ffmpeg recipes in SKILL.md are a draft. Each one ran on a test clip, but nobody has run the whole flow from comments to edits on a real project yet. Check the output, and open an issue when an edit goes wrong.
 
 Each session reviews one video or image. There is no audio-only mode yet.
 
