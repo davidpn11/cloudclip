@@ -112,13 +112,8 @@ overlay.onpointerup = () => { start = null; txt.focus(); };
 $('copy').onclick = async e => {
   e.preventDefault(); // the button sits in <summary>, so don't toggle the panel
   const b = e.currentTarget;
-  let ok;
-  try { await navigator.clipboard.writeText($('json').textContent); ok = true; }
-  catch { // some embedded browsers block the Clipboard API; fall back to selecting the text
-    const t = document.createElement('textarea'); // the <pre> may sit in a closed <details>, so copy from a temporary field
-    t.value = $('json').textContent; document.body.append(t); t.select(); ok = document.execCommand('copy'); t.remove();
-  }
-  b.textContent = ok ? 'Copied' : 'Copy failed';
+  try { await navigator.clipboard.writeText($('json').textContent); b.textContent = 'Copied'; }
+  catch { b.textContent = 'Copy failed'; }
   setTimeout(() => { b.textContent = 'Copy'; }, 1500);
 };
 $('done').onclick = async () => {

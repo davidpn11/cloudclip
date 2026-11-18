@@ -3,7 +3,7 @@
 Usage: python3 server.py <media> <comments.json>
 Prints the URL on start and "done" when the user clicks Finished, then exits.
 """
-import json, mimetypes, os, re, sys, threading
+import json, mimetypes, os, re, sys
 from urllib.parse import quote
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 
@@ -90,7 +90,7 @@ class H(BaseHTTPRequestHandler):
         if self.path == "/done":  # the page's Finished button: exit so the agent sees the process end
             self._send(200, b"ok", "text/plain")
             print("done", flush=True)
-            return threading.Thread(target=self.server.shutdown).start()
+            os._exit(0)  # comments are already saved atomically, so nothing is lost
         if self.path != "/comments":
             return self._send(404, b"not found", "text/plain")
         raw = self.rfile.read(int(self.headers.get("Content-Length", 0)))
