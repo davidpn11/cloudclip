@@ -7,7 +7,7 @@ description: Review a video or image in the browser with comments tied to a mome
 
 The user watches the video, or looks at the image, in a local web page. They pause, can drag a box or click a spot on the frame, and type a comment. You then turn those comments into ffmpeg edits.
 
-The folder that holds this file also holds `server.py`, which uses only the Python standard library, and `app/`, the review page. In Claude Code, that folder is `${CLAUDE_PLUGIN_ROOT}/skills/cloudclip-review`.
+The folder that holds this file also holds `server.py`, which uses only the Python standard library, and `app/`, the review page. Find it from this file's own path. When CloudClip is installed as the Claude Code plugin, it is `${CLAUDE_PLUGIN_ROOT}/skills/cloudclip-review`.
 
 ## 1. Check tools and inspect the media
 - Check that `python3`, `ffmpeg` and `ffprobe` exist with `command -v`. If one is missing, stop and tell the user how to install it. On macOS that's `brew install ffmpeg`, on Debian or Ubuntu `sudo apt install ffmpeg python3`, and on Windows `winget install ffmpeg`.
@@ -20,7 +20,7 @@ Save the comments outside the user's project and outside this skill folder. Use 
 python3 "<skill folder>/server.py" "<media>" "<scratch>/cloudclip-<media-name>.json"
 ```
 
-Run it in the background. The first line it prints is the URL, for example `http://127.0.0.1:53817/?src=/media/talk.mp4`. The OS picks a free port, and the server listens on 127.0.0.1 only. If the JSON file already exists, the page loads the user's earlier comments so they can pick up where they left off.
+Run it in the background. The first line it prints is the URL, for example `http://127.0.0.1:53817/?src=/media/talk.mp4`. The OS picks a free port, and the server listens on 127.0.0.1 only. If the JSON file already exists, the page loads the user's earlier comments so they can pick up where they left off. When the user clicks **Finished** on the page, the server prints `done` and exits.
 
 ## 3. Open the page and explain it
 In the Claude Code desktop app, open the URL in the built-in browser pane with `preview_start`. In a terminal, run `open "<url>"` on macOS, `xdg-open "<url>"` on Linux, or `start "" "<url>"` on Windows. Other agents can use whatever they have for opening a URL.
@@ -29,10 +29,10 @@ Tell the user how the page works:
 - C pauses and opens a comment. While it's open, they can drag on the frame to mark an area or click to mark a spot, then type.
 - Enter saves, Shift+Enter adds a new line, and Esc cancels.
 - Space plays or pauses, and the left and right arrows jump 5 seconds. Clicking a comment jumps to it and shows its mark. The ✕ button deletes it.
-- Comments save as they go. They should say "done" in the chat when they finish.
+- Comments save as they go. When they finish, they click **Finished · return to agent** at the top of the page, or say "done" in the chat.
 
 ## 4. Read the comments
-When the user says they're done, read the JSON file. It holds a list. Times are in seconds. Coordinates are in the media's source pixels, measured from the top-left corner, at the resolution ffprobe reports.
+When the server exits after printing `done`, or the user says they're done, read the JSON file. It holds a list. Times are in seconds. Coordinates are in the media's source pixels, measured from the top-left corner, at the resolution ffprobe reports.
 
 ```json
 [
@@ -57,7 +57,7 @@ For a point, draw a 24 by 24 box centered on it (`x-12`, `y-12`, `w=24`, `h=24`)
 3. Write a new file next to the original, named `<name>.cloudclip.<ext>`. **Never overwrite the original.** Chain the operations in one filter graph when you can. Otherwise run each step on an intermediate file in your scratch directory.
 4. Do region edits (blur, box, text) before cuts. Apply time-based edits from the end of the video backward, so an earlier cut doesn't shift the timestamps of later ones.
 5. Run ffprobe on the result and check that the duration matches the plan. Grab a frame at each edited spot and look at it.
-6. Stop the server by killing its background process, and tell the user where the new file is.
+6. If the server is still running, stop it by killing its background process. Tell the user where the new file is.
 
 ## Common edits (draft)
 Each recipe ran on a test clip, but nobody has run them end to end on a real project yet. Check the output every time.

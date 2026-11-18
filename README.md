@@ -61,7 +61,7 @@ Any other agent can use CloudClip if you copy [`skills/cloudclip-review/`](skill
 | Enter, Shift+Enter, Esc | Save, add a new line, cancel |
 | Space, ← and → | Play or pause, jump 5 seconds |
 
-Click a comment to jump to it and see its mark. Tell your agent "done" when you finish.
+Click a comment to jump to it and see its mark. "Agent view" shows the JSON your agent reads, with a Copy button. When you finish, click **Finished · return to agent**, or tell your agent "done".
 
 ### What the agent receives
 ```json
