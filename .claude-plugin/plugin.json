@@ -1,7 +1,7 @@
 {
   "name": "cloudclip",
   "displayName": "CloudClip",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Review a video or image in your browser by pausing, marking an area and leaving a comment. Claude then applies the comments as ffmpeg edits.",
   "author": { "name": "David Nascimento" },
   "homepage": "https://cloudclip.davidpn.com/",
