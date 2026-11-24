@@ -1,12 +1,12 @@
 {
   "name": "cloudclip",
   "displayName": "CloudClip",
-  "version": "0.2.0",
-  "description": "Review a video or image in your browser by pausing, marking an area and leaving a comment. Claude then applies the comments as ffmpeg edits.",
+  "version": "0.3.0",
+  "description": "Review a video, image or presentation in your browser by marking an area and leaving a comment. Claude then applies the comments as edits.",
   "author": { "name": "David Nascimento" },
   "homepage": "https://cloudclip.davidpn.com/",
   "repository": "https://github.com/davidpn11/cloudclip",
   "license": "MIT",
   "icon": "./.claude-plugin/icon.png",
-  "keywords": ["video", "image", "review", "ffmpeg", "editing"]
+  "keywords": ["video", "image", "presentation", "review", "ffmpeg", "editing"]
 }

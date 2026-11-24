@@ -24,7 +24,8 @@
     <div class="stage" id="stage"><div id="overlay"></div></div>
     <div class="bar">
       <button class="primary" id="add">Comment <kbd>C</kbd></button>
-      <span class="muted">Drag on the frame to mark an area, or click a spot<span class="video-only"> · <kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> 5s</span></span>
+      <span class="slides-only pager"><button type="button" id="prev" aria-label="Previous slide">←</button><span id="page" aria-live="polite"></span><button type="button" id="next" aria-label="Next slide">→</button></span>
+      <span class="muted">Drag on the frame to mark an area, or click a spot<span class="video-only"> · <kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> 5s</span><span class="slides-only"> · <kbd>←</kbd> <kbd>→</kbd> change slide</span><span class="html-only"> after you press <kbd>C</kbd>. Until then, use the page as usual.</span></span>
       <span class="muted" id="status"></span>
     </div>
   </section>

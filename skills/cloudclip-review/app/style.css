@@ -104,6 +104,10 @@ pre { margin: 10px 0 0; max-height: 320px; overflow: auto; white-space: pre-wrap
 .finished-msg { display: none; }
 .finished .app { display: none; }
 .finished .finished-msg { display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center; max-width: 360px; margin: 30vh auto 0; padding: 28px 32px; }
-.is-image .video-only { display: none; }
+body:not([data-kind="video"]) .video-only, body:not([data-kind="slides"]) .slides-only, body:not([data-kind="html"]) .html-only { display: none; }
+[data-kind="html"] .stage { width: min(100%, 70vh * 16 / 9); aspect-ratio: 16 / 9; }
+[data-kind="html"] #media { position: absolute; top: 0; left: 0; width: 1280px; height: 720px; max-width: none; max-height: none; border: 0; background: #fff; transform-origin: 0 0; }
+.pager { display: inline-flex; align-items: center; gap: 8px; font-variant-numeric: tabular-nums; }
+.pager button:disabled, .marking ~ .bar .pager button { opacity: .4; cursor: default; }
 .theme-toggle { padding: 8px; color: var(--muted); }
 .theme-toggle:hover { color: var(--ink); }

@@ -1,8 +1,8 @@
 # CloudClip
 
-Comment on a video like a doc, and your agent makes the edits.
+Comment on a video or presentation like a doc, and your agent makes the edits.
 
-CloudClip opens a video or image in a local web page. You pause, drag a box or click a spot, and type what should change. Your AI agent gets each comment with its timestamp and pixel coordinates, grabs the marked frame to see what you pointed at, and applies the edit with ffmpeg. It writes a new file and leaves the original alone.
+CloudClip opens a video, image, PowerPoint deck or HTML deck in a local web page. You pause, drag a box or click a spot, and type what should change. Your AI agent gets each comment with its timestamp or slide and pixel coordinates, looks at what you pointed at, and applies the edit, with ffmpeg for video and images or in the file itself for decks. It writes a new file and leaves the original alone.
 
 Try the live demo at https://cloudclip.davidpn.com/. It runs in your browser and uploads nothing.
 
@@ -51,15 +51,17 @@ Any other agent can use CloudClip if you copy [`skills/cloudclip-review/`](skill
 
 ### Requirements
 - `python3`, which comes with macOS and most Linux distributions
-- `ffmpeg` and `ffprobe`, from `brew install ffmpeg`, `sudo apt install ffmpeg`, or `winget install ffmpeg`
+- For video and images, `ffmpeg` and `ffprobe`, from `brew install ffmpeg`, `sudo apt install ffmpeg`, or `winget install ffmpeg`
+- For PowerPoint only, LibreOffice and poppler. CloudClip doesn't bundle or install them by itself. If you review a deck without them, your agent shows you the commands and asks first.
+- HTML decks need nothing else
 
 ## Using it
 
 | Key | Action |
 | --- | --- |
-| C | Pause and open a comment. While it's open, drag on the frame to mark an area or click to mark a spot. Marking is optional. |
+| C | Open a comment, and pause a video. While it's open, drag on the frame to mark an area or click to mark a spot. Marking is optional. |
 | Enter, Shift+Enter, Esc | Save, add a new line, cancel |
-| Space, ← and → | Play or pause, jump 5 seconds |
+| Space, ← and → | In a video, play or pause, jump 5 seconds. In a PowerPoint deck, ← and → change slide. An HTML deck keeps its own keys. |
 
 Click a comment to jump to it and see its mark. "Agent view" shows the JSON your agent reads, with a Copy button. When you finish, click **Finished · return to agent**, or tell your agent "done".
 
@@ -71,14 +73,16 @@ Click a comment to jump to it and see its mark. "Agent view" shows the JSON your
   {"time": 95.2, "timestamp": "1:35.2", "text": "cut from here to 1:50"}
 ]
 ```
-Times are in seconds. Coordinates are in the media's source pixels, measured from the top-left corner. Image comments have no time.
+Times are in seconds. Coordinates are in the media's source pixels, measured from the top-left corner. Image comments have no time. PowerPoint comments have a `slide` number instead. HTML comments list the page elements under the mark, with their text and a CSS selector, so your agent can find them in the source.
 
 ## How it works
 ```
 skills/cloudclip-review/
   SKILL.md     the steps the agent follows, plus the ffmpeg recipes
+  presentations.md  the steps for PowerPoint and HTML decks
   server.py    a Python server with no dependencies. It listens on 127.0.0.1 and serves the page,
-               the media file (with seeking), and comments.json.
+               the media file (with seeking), and comments.json. An HTML deck runs on a second port,
+               so its scripts can't reach your comments.
   app/         the review page. The website's demo runs these same files and saves to localStorage.
 website/       the project website, a Next.js static export
 demo/          the sample video and image for the demo
@@ -88,9 +92,13 @@ plugin.json    the Agent Plugins manifest, read by Codex, Cursor and Copilot CLI
 ```
 
 ## Status
-This is version 0.2. I tested the review page and the server by hand. The ffmpeg recipes in SKILL.md are a draft. Each one ran on a test clip, but nobody has run the whole flow from comments to edits on a real project yet. Check the output, and open an issue when an edit goes wrong.
+This is version 0.3. I tested the review page and the server by hand. The ffmpeg recipes in SKILL.md are a draft. Each one ran on a test clip, but nobody has run the whole flow from comments to edits on a real project yet. Check the output, and open an issue when an edit goes wrong.
 
-Each session reviews one video or image. There is no audio-only mode yet.
+HTML decks whose text is packed, encoded, drawn on a canvas or inside a nested frame can be reviewed but not edited safely. The agent tells you when that happens. The public demo covers video and images only.
+
+Each session reviews one file. There is no audio-only mode yet.
+
+To run the server tests: `python3 -m unittest discover tests`
 
 ## Privacy
 The server listens on 127.0.0.1 only, so your media and comments stay on your machine. The agent saves comments to a temp file outside your project.
@@ -105,7 +113,7 @@ cd website && bun install && bun run dev
 The `Website` workflow in `.github/workflows/pages.yml` builds the site on every pull request and deploys it to GitHub Pages on every push to `main` that changes it. Before the first deploy, open the repo's Settings, go to Pages, and set Source to "GitHub Actions".
 
 ## Releasing
-Bump `version` in both `plugin.json` and `.claude-plugin/plugin.json` for every release. Without a new version, `claude plugin update` and the other clients keep the old copy. Run `claude plugin validate . --strict` before you push.
+Bump `version` in both `plugin.json` and `.claude-plugin/plugin.json` for every release, and add the release to [CHANGELOG.md](CHANGELOG.md). Without a new version, `claude plugin update` and the other clients keep the old copy. Run `claude plugin validate . --strict` before you push.
 
 ## License
 [MIT](LICENSE)
