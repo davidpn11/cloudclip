@@ -1,12 +1,12 @@
 {
   "name": "cloudclip",
-  "description": "Comment on videos and images, and let your agent make the edits",
+  "description": "Comment on videos, images and presentations, and let your agent make the edits",
   "owner": { "name": "David Nascimento" },
   "plugins": [
     {
       "name": "cloudclip",
       "source": "./",
-      "description": "Review a video or image in your browser with timestamped, area-marked comments, then apply them as ffmpeg edits."
+      "description": "Review a video, image or presentation in your browser with area-marked comments, then apply them as edits."
     }
   ]
 }

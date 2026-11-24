@@ -1,16 +1,18 @@
 ---
 name: cloudclip-review
-description: Review a video or image in the browser with comments tied to a moment and, optionally, a marked area (box or point), then apply those comments as edits with ffmpeg. Use when the user wants to review, give feedback on, annotate, or edit a video or image file (mp4, mov, webm, png, jpg and similar), or mentions CloudClip.
+description: Review a video, image or presentation in the browser with comments tied to a moment or slide and, optionally, a marked area (box or point), then apply those comments as edits. Use when the user wants to review, give feedback on, or annotate a video or image file (mp4, mov, webm, png, jpg and similar) or a presentation (pptx, ppt, or an html deck or page), or mentions CloudClip.
 ---
 
 # CloudClip review
 
-The user watches the video, or looks at the image, in a local web page. They pause, can drag a box or click a spot on the frame, and type a comment. You then turn those comments into ffmpeg edits.
+The user watches the video, looks at the image, or goes through the presentation in a local web page. They pause, can drag a box or click a spot on the frame, and type a comment. You then turn those comments into edits.
+
+**For a .pptx, .ppt, .html or .htm file, also read `presentations.md` in this folder.** It replaces step 1 and the edit recipes, and adds to steps 2, 4 and 5.
 
 The folder that holds this file also holds `server.py`, which uses only the Python standard library, and `app/`, the review page. Find it from this file's own path. When CloudClip is installed as the Claude Code plugin, it is `${CLAUDE_PLUGIN_ROOT}/skills/cloudclip-review`.
 
 ## 1. Check tools and inspect the media
-- Check that `python3`, `ffmpeg` and `ffprobe` exist with `command -v`. If one is missing, stop and tell the user how to install it. On macOS that's `brew install ffmpeg`, on Debian or Ubuntu `sudo apt install ffmpeg python3`, and on Windows `winget install ffmpeg`.
+- For a video or image, check that `python3`, `ffmpeg` and `ffprobe` exist with `command -v`. If one is missing, stop and tell the user how to install it. On macOS that's `brew install ffmpeg`, on Debian or Ubuntu `sudo apt install ffmpeg python3`, and on Windows `winget install ffmpeg`.
 - Run `ffprobe -v error -show_entries format=duration:stream=codec_type,codec_name,width,height,r_frame_rate -of compact "<media>"` and note the duration, resolution and codecs. For an image, only the resolution matters.
 
 ## 2. Start the review server
@@ -26,9 +28,9 @@ Run it in the background. The first line it prints is the URL, for example `http
 In the Claude Code desktop app, open the URL in the built-in browser pane with `preview_start`. In a terminal, run `open "<url>"` on macOS, `xdg-open "<url>"` on Linux, or `start "" "<url>"` on Windows. Other agents can use whatever they have for opening a URL.
 
 Tell the user how the page works:
-- C pauses and opens a comment. While it's open, they can drag on the frame to mark an area or click to mark a spot, then type.
+- C opens a comment, and pauses a video. While it's open, they can drag on the frame to mark an area or click to mark a spot, then type.
 - Enter saves, Shift+Enter adds a new line, and Esc cancels.
-- Space plays or pauses, and the left and right arrows jump 5 seconds. Clicking a comment jumps to it and shows its mark. The ✕ button deletes it.
+- In a video, Space plays or pauses, and the left and right arrows jump 5 seconds. In a PowerPoint deck the arrows change slide. An HTML deck keeps its own keys. Clicking a comment jumps to it and shows its mark. The ✕ button deletes it.
 - Comments save as they go. When they finish, they click **Finished · return to agent** at the top of the page, or say "done" in the chat.
 
 ## 4. Read the comments
@@ -41,7 +43,7 @@ When the server exits after printing `done`, or the user says they're done, read
   {"time": 95.2, "timestamp": "1:35.2", "text": "cut from here to 1:50"}
 ]
 ```
-Image comments have no `time` or `timestamp`.
+Image comments have no `time` or `timestamp`. `presentations.md` has the format for decks.
 
 ## 5. Look at every marked comment
 For each comment with a `box` or `point`, grab that frame with the mark drawn on it and look at the image, so you know what the user pointed at.
